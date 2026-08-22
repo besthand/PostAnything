@@ -10,7 +10,7 @@ run_worker_first = ["/api/*", "/health"]
 
 [vars]
 ALLOWED_METHODS = "GET,POST,PUT,PATCH,DELETE"
-ALLOWED_HOSTS = ""
+ALLOWED_HOSTS = "postanything.handbro.pro"
 ALLOW_ANY_PUBLIC_HOST = "false"
 ALLOW_HTTP = "false"
 MAX_REQUEST_BODY_BYTES = "2097152"
@@ -27,4 +27,4 @@ class_name = "RateLimitCounter"
 
 [[migrations]]
 tag = "v1"
-new_classes = ["RateLimitCounter"]
+new_sqlite_classes = ["RateLimitCounter"]

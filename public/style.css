@@ -83,3 +83,30 @@ pre {
 .status {
   font-weight: 700;
 }
+
+#agent-guide {
+  border: 1px solid var(--border);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+#agent-guide summary {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#agent-guide ol,
+#agent-guide ul {
+  margin: 0.6rem 0 0;
+  padding-left: 1.4rem;
+}
+
+#agent-guide li {
+  margin-bottom: 0.5rem;
+}
+
+#agent-guide code {
+  font: inherit;
+  border: 1px solid var(--border);
+  padding: 0 0.2rem;
+}

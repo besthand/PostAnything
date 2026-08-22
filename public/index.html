@@ -13,6 +13,35 @@
 
       <p id="token-status" class="status">TOKEN: NOT LOADED</p>
 
+      <details id="agent-guide" open>
+        <summary>HOW TO USE（AI AGENT 操作指南）</summary>
+        <ol>
+          <li>確認上方顯示 <code>TOKEN: LOADED</code>。若顯示 <code>TOKEN: NOT LOADED</code>，改用網址 <code>#token=&lt;RELAY_TOKEN&gt;</code> 重新開啟本頁。</li>
+          <li><code>Method</code> 選單選擇 HTTP Method（GET / POST / PUT / PATCH / DELETE 等）。</li>
+          <li><code>URL</code> 欄位輸入完整目標網址（含 <code>https://</code>），不需要自己做 URL encoding。</li>
+          <li>需要 Query Parameter 時按 <code>ADD PARAMETER</code>，逐組填 Key 與 Value。</li>
+          <li>需要自訂 HTTP Header 時按 <code>ADD HEADER</code>，逐組填 Header 名稱與 Value。</li>
+          <li><code>Body Type</code> 選 <code>none</code> / <code>JSON</code> / <code>raw</code> / <code>application/x-www-form-urlencoded</code>；選 <code>JSON</code> 或 <code>raw</code> 時在下方 textarea 填內容，選 form 時改用 <code>ADD FORM FIELD</code> 逐欄填寫。</li>
+          <li>不確定內容是否正確時，先按 <code>SHOW REQUEST PREVIEW</code> 檢查（Authorization 等敏感 Header 只在預覽中顯示為 <code>********</code>，實際送出時仍是完整值）。</li>
+          <li>按 <code>SEND REQUEST</code> 送出。按鈕會變成 <code>SENDING...</code>，等它變回 <code>SEND REQUEST</code> 代表已完成，再往下讀 <code>HTTP RESPONSE</code> 區塊。</li>
+          <li>
+            判讀 <code>HTTP RESPONSE</code>：
+            <ul>
+              <li><code>STATUS: SUCCESS</code> — Relay 已成功送出請求，接著看 <code>HTTP_STATUS</code> 判斷目標服務的結果（目標回傳 4xx/5xx 也算 Relay 成功，不是 Relay 錯誤）。</li>
+              <li><code>STATUS: ERROR</code> — Relay 本身拒絕或失敗，看 <code>ERROR_CODE</code>：
+                <code>INVALID_RELAY_TOKEN</code>（token 沒帶到或錯誤，需重新用 <code>#token=</code> 開頁）、
+                <code>HOST_NOT_ALLOWED</code>（目標網域不在管理者設定的白名單）、
+                <code>SSRF_BLOCKED</code>（目標指向內部網路，不要重試）、
+                <code>METHOD_NOT_ALLOWED</code>（換一個被允許的 Method）、
+                <code>TARGET_TIMEOUT</code>（目標沒回應，可稍後重試）、
+                <code>RATE_LIMITED</code>（送太快，等一分鐘再試）。
+              </li>
+            </ul>
+          </li>
+          <li>不確定 Relay 是否正常運作，可到 <a href="/test.html">/test.html</a> 用內建的 Echo Endpoint 做一次端到端自我驗證。</li>
+        </ol>
+      </details>
+
       <form id="relay-form">
         <fieldset>
           <legend>Request</legend>
