@@ -1,0 +1,85 @@
+:root {
+  color-scheme: light dark;
+  --border: #8a8a8a;
+}
+
+body {
+  font-family: ui-monospace, "SFMono-Regular", "Consolas", monospace;
+  line-height: 1.6;
+  margin: 0;
+  padding: 1.5rem;
+}
+
+main {
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 1.4rem;
+}
+
+h2 {
+  font-size: 1.1rem;
+}
+
+fieldset {
+  border: 1px solid var(--border);
+  margin: 0 0 1rem;
+  padding: 1rem;
+}
+
+legend {
+  font-weight: 700;
+}
+
+label {
+  display: block;
+  margin: 0.6rem 0 0.2rem;
+}
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.4rem;
+  font: inherit;
+  border: 1px solid var(--border);
+}
+
+.kv-row {
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+
+button {
+  font: inherit;
+  padding: 0.5rem 1rem;
+  margin-top: 0.6rem;
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+pre {
+  border: 1px solid var(--border);
+  padding: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+}
+
+.status {
+  font-weight: 700;
+}

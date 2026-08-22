@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>HTTP Relay</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>HTTP Relay</h1>
+
+      <p id="token-status" class="status">TOKEN: NOT LOADED</p>
+
+      <form id="relay-form">
+        <fieldset>
+          <legend>Request</legend>
+
+          <label for="method">Method</label>
+          <select id="method" name="method">
+            <option value="GET">GET</option>
+            <option value="POST" selected>POST</option>
+            <option value="PUT">PUT</option>
+            <option value="PATCH">PATCH</option>
+            <option value="DELETE">DELETE</option>
+            <option value="HEAD">HEAD</option>
+            <option value="OPTIONS">OPTIONS</option>
+          </select>
+
+          <label for="target-url">URL</label>
+          <input id="target-url" name="targetUrl" type="text" placeholder="https://example.com/webhook" />
+        </fieldset>
+
+        <fieldset>
+          <legend>Query Parameters</legend>
+          <div id="query-rows"></div>
+          <button type="button" id="add-query">ADD PARAMETER</button>
+        </fieldset>
+
+        <fieldset>
+          <legend>Headers</legend>
+          <div id="header-rows"></div>
+          <button type="button" id="add-header">ADD HEADER</button>
+        </fieldset>
+
+        <fieldset>
+          <legend>Body</legend>
+
+          <label for="body-type">Body Type</label>
+          <select id="body-type" name="bodyType">
+            <option value="none">none</option>
+            <option value="json" selected>JSON</option>
+            <option value="raw">raw</option>
+            <option value="form">application/x-www-form-urlencoded</option>
+          </select>
+
+          <div id="body-text-section">
+            <label for="body-text">Body</label>
+            <textarea id="body-text" name="bodyText" rows="10" spellcheck="false"></textarea>
+          </div>
+
+          <div id="body-form-section" hidden>
+            <p>Form Fields</p>
+            <div id="form-rows"></div>
+            <button type="button" id="add-form-field">ADD FORM FIELD</button>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button type="button" id="preview-button">SHOW REQUEST PREVIEW</button>
+          <button type="submit" id="send-button">SEND REQUEST</button>
+        </div>
+      </form>
+
+      <section>
+        <h2>REQUEST PREVIEW</h2>
+        <pre id="request-preview">(not generated yet)</pre>
+      </section>
+
+      <section>
+        <h2>HTTP RESPONSE</h2>
+        <pre id="http-response">STATUS: IDLE</pre>
+      </section>
+
+      <p><a href="/test.html">OPEN SELF TEST PAGE</a></p>
+    </main>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
