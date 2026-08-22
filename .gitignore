@@ -5,3 +5,5 @@ dist/
 .wrangler/
 .vercel/
 coverage/
+requirement.md
+docs/superpowers/specs/2026-08-21-agent-http-relay-design.md
