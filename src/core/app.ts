@@ -1,4 +1,4 @@
-import { Hono } from 'hono'
+import { Hono, type MiddlewareHandler } from 'hono'
 import { buildEcho } from './echo.js'
 import { RelayError, toErrorBody } from './errors.js'
 import { handleRelay, type RelayDeps } from './relay.js'
@@ -12,6 +12,8 @@ declare module 'hono' {
 
 export interface AppDeps extends RelayDeps {
   generateRequestId?: () => string
+  /** 掛在 API 路由之後、404 之前，讓靜態檔也套用到安全 header */
+  staticMiddleware?: MiddlewareHandler
 }
 
 const CSP = [
@@ -85,6 +87,10 @@ export function createApp(deps: AppDeps): Hono {
   })
 
   app.all('/api/echo', async (c) => c.json(await buildEcho(c.req.raw)))
+
+  if (deps.staticMiddleware) {
+    app.use('*', deps.staticMiddleware)
+  }
 
   app.notFound((c) =>
     c.json(

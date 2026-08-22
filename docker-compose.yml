@@ -1,0 +1,11 @@
+services:
+  relay:
+    build: .
+    image: agent-http-relay:latest
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:3000:3000"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
