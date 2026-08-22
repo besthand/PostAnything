@@ -6,8 +6,6 @@ Agent 開啟 Relay Page、填表單、按 SEND REQUEST，由 Relay Server 代為
 
 一份程式碼可部署到 Docker / Vercel（Node.js Serverless）/ Cloudflare Workers。
 
-- 需求文件：[`requirement.md`](requirement.md)
-- 設計文件：[`docs/superpowers/specs/2026-08-21-agent-http-relay-design.md`](docs/superpowers/specs/2026-08-21-agent-http-relay-design.md)
 - Agent Skill 範本：[`docs/agent-skill.md`](docs/agent-skill.md)
 - 開發者指引：[`CLAUDE.md`](CLAUDE.md)
 
