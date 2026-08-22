@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>HTTP Relay — Self Test</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>HTTP Relay — Self Test</h1>
+
+      <p>
+        這個頁面讓 AI Agent 不依賴任何外部服務，就能端到端驗證 Relay 是否正常運作。
+      </p>
+
+      <fieldset>
+        <legend>Echo Endpoint</legend>
+        <label for="echo-url">ECHO URL</label>
+        <input id="echo-url" name="echoUrl" type="text" readonly />
+        <button type="button" id="copy-echo-url">COPY ECHO URL</button>
+        <p id="copy-status" class="status">COPY_STATUS: IDLE</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Steps</legend>
+        <ol>
+          <li>開啟 Relay Page（<a href="/">/</a>），確認頁面顯示 <code>TOKEN: LOADED</code>。</li>
+          <li>Method 選 <code>POST</code>。</li>
+          <li>URL 貼上本頁的 ECHO URL。</li>
+          <li>Query Parameters 新增一組：Key <code>probe</code>、Value <code>relay-selftest</code>。</li>
+          <li>Headers 新增一組：Header <code>X-Probe</code>、Value <code>relay-selftest</code>。</li>
+          <li>Body Type 選 <code>JSON</code>，Body 填 <code>{"probe":"relay-selftest"}</code>。</li>
+          <li>按 <code>SEND REQUEST</code>，等 <code>HTTP RESPONSE</code> 區出現結果。</li>
+          <li>
+            確認 <code>STATUS: SUCCESS</code>、<code>HTTP_STATUS: 200</code>，且
+            <code>RESPONSE_BODY</code> 內同時出現
+            <code>"probe":"relay-selftest"</code>（query）、
+            <code>"x-probe":"relay-selftest"</code>（header）、
+            以及 body 原文。三者都對上就代表整條路徑正常。
+          </li>
+        </ol>
+      </fieldset>
+
+      <fieldset>
+        <legend>Notes</legend>
+        <ul>
+          <li>
+            Echo 端點與 Relay 同源，因此必須把這個部署的網域加進
+            <code>ALLOWED_HOSTS</code>，或設定 <code>ALLOW_ANY_PUBLIC_HOST=true</code>，
+            否則會得到 <code>HOST_NOT_ALLOWED</code>。
+          </li>
+          <li>
+            在本機用 <code>localhost</code> 測試時會被 SSRF loopback 規則擋下並回
+            <code>SSRF_BLOCKED</code>。這是刻意保留的行為 — allowlist 與 SSRF 是兩道獨立防線。
+            本機自我驗證請改用可公開解析的網域。
+          </li>
+          <li><code>/api/echo</code> 不需要 Relay Token，它的角色是「被 Relay 呼叫的目標」。</li>
+        </ul>
+      </fieldset>
+
+      <p><a href="/">BACK TO RELAY PAGE</a></p>
+    </main>
+
+    <script type="module" src="/test.js"></script>
+  </body>
+</html>
