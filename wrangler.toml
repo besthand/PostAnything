@@ -1,0 +1,30 @@
+name = "agent-http-relay"
+main = "src/adapters/workers/entry.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/api/*", "/health"]
+
+[vars]
+ALLOWED_METHODS = "GET,POST,PUT,PATCH,DELETE"
+ALLOWED_HOSTS = ""
+ALLOW_ANY_PUBLIC_HOST = "false"
+ALLOW_HTTP = "false"
+MAX_REQUEST_BODY_BYTES = "2097152"
+MAX_RESPONSE_BODY_BYTES = "5242880"
+REQUEST_TIMEOUT_MS = "30000"
+FOLLOW_REDIRECTS = "false"
+RATE_LIMIT_MAX = "30"
+RATE_LIMIT_WINDOW_MS = "60000"
+DOH_ENDPOINT = "https://cloudflare-dns.com/dns-query"
+
+[[durable_objects.bindings]]
+name = "RATE_LIMITER"
+class_name = "RateLimitCounter"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["RateLimitCounter"]
